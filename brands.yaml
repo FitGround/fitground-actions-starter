@@ -1,0 +1,13 @@
+# 수집 대상 브랜드/페이지 설정 예시
+# 이후 원하는 만큼 항목을 추가하세요.
+brands:
+  - key: sample_brand
+    brand_ko: 샘플브랜드
+    brand: SAMPLE BRAND
+    category: tent
+    list_url: https://example.com/tents
+    # CSS 선택자, 정규식 등은 실제 사이트에 맞게 수정
+    selectors:
+      item: ".product-card"
+      name: ".product-title"
+      size: ".size"   # "300x250 cm" 같은 문자열 가정
