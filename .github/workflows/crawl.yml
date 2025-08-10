@@ -19,10 +19,12 @@ jobs:
           python-version: "3.11"
 
       - name: Install deps
-        run: pip install -r scraper/requirements.txt
+        run: |
+          pip install -r scraper/requirements.txt
 
       - name: Run scraper
-        run: python scraper/scrape.py
+        run: |
+          python scraper/scrape.py
 
       - name: Commit & push if changed
         run: |
@@ -34,3 +36,4 @@ jobs:
             git push
           else
             echo "No changes to commit."
+          fi
