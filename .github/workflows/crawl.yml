@@ -1,0 +1,41 @@
+name: Crawl & Save
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # 매일 00:00 UTC 실행 (한국시간 09:00)
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r scraper/requirements.txt
+
+      - name: Resolve domains
+        run: python tools/resolve_domains.py
+
+      - name: Generate brands.yaml
+        run: python tools/generate_brands_yaml.py
+
+      - name: Run scraper
+        run: python scraper/scrape.py
+
+      - name: Commit & push results
+        run: |
+          git config user.name "FitGround Bot"
+          git config user.email "bot@fitground.co.kr"
+          git add brand_outputs/*
+          git commit -m "Auto-update scraped data" || echo "No changes"
+          git push
