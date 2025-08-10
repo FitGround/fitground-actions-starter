@@ -3,8 +3,8 @@ import csv, json, yaml
 from pathlib import Path
 DEFAULT = {
   "category": "tent",
-  "allow_paths": ["/product", "/products", "/shop", "/store", "/tent"],
-  "product_link_pattern": "/(product|shop|item|store)/",
+  "allow_paths": [],  # ← 빈 리스트로
+  "product_link_pattern": "(product|goods|detail|item|shop|store|view|catalog|collection)",
   "limits": {"max_pages": 200, "max_depth": 3},
   "selectors": {
     "name_ko": "h1, .product-title, .title",
